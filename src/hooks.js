@@ -33,9 +33,10 @@ export function useReveal(dep) {
 }
 
 /** Returns the id of the section that is currently across the middle of the screen. */
-export function useScrollSpy(ids) {
+export function useScrollSpy(ids, dep) {
   const [active, setActive] = useState(ids[0]);
   useEffect(() => {
+    setActive(ids[0]);
     const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
     if (!els.length || !('IntersectionObserver' in window)) return undefined;
     const io = new IntersectionObserver(
@@ -49,7 +50,7 @@ export function useScrollSpy(ids) {
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ids.join('|')]);
+  }, [ids.join('|'), dep]);
   return active;
 }
 

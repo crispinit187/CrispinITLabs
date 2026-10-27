@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { Link, Route, Routes, useLocation } from 'react-router-dom';
 import { brand, contact } from './data/site.js';
-import { useReveal } from './hooks.js';
+import { useReveal, useScrollSpy } from './hooks.js';
+import ThemeToggle from './components/ThemeToggle.jsx';
 import Home from './pages/Home.jsx';
 import Services from './pages/Services.jsx';
 import Portfolio from './pages/Portfolio.jsx';
@@ -9,16 +10,30 @@ import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 
 const links = [
-  { to: '/', label: 'Home', end: true },
+  { to: '/', label: 'Home' },
   { to: '/services', label: 'Services' },
   { to: '/portfolio', label: 'Portfolio' },
   { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' },
 ];
+
+// On Home, the section in view decides which link is underlined.
+const homeSections = ['intro', 'services', 'work', 'why', 'start'];
+const sectionToLink = {
+  intro: '/',
+  services: '/services',
+  work: '/portfolio',
+  why: '/about',
+  start: '/contact',
+};
 
 function Header() {
   const [open, setOpen] = useState(false);
   const [raised, setRaised] = useState(false);
   const { pathname } = useLocation();
+  const onHome = pathname === '/';
+  const section = useScrollSpy(onHome ? homeSections : [], pathname);
+  const activeTo = onHome ? sectionToLink[section] || '/' : pathname;
 
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
@@ -31,10 +46,6 @@ function Header() {
   return (
     <header className={`site-header ${raised ? 'raised' : ''}`}>
       <div className="header-inner">
-        <Link to="/" className="brandmark" aria-label={`${brand.name} home`}>
-          <span className="logo">CI</span>
-          <span className="disp brandname">{brand.name}</span>
-        </Link>
         <button
           className="menu-btn"
           aria-expanded={open}
@@ -45,14 +56,17 @@ function Header() {
         </button>
         <nav id="main-nav" className={`main-nav ${open ? 'open' : ''}`} aria-label="Main">
           {links.map((l) => (
-            <NavLink key={l.to} to={l.to} end={l.end} className="navl">
+            <Link
+              key={l.to}
+              to={l.to}
+              className={`navl ${activeTo === l.to ? 'active' : ''}`}
+              aria-current={activeTo === l.to ? 'true' : undefined}
+            >
               {l.label}
-            </NavLink>
+            </Link>
           ))}
-          <NavLink to="/contact" className="btn btn-dark nav-cta">
-            Contact
-          </NavLink>
         </nav>
+        <ThemeToggle />
       </div>
     </header>
   );
@@ -62,7 +76,7 @@ function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-inner">
-        <div>
+        <div className="footer-brand">
           <strong className="disp">{brand.name}</strong>
           <p>Websites and systems for Zambian businesses and organisations.</p>
         </div>

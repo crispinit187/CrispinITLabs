@@ -1,43 +1,7 @@
 import { Link } from 'react-router-dom';
 import { brand, projects, services, skills } from '../data/site.js';
-import { useCountUp, useScrollSpy } from '../hooks.js';
+import { useCountUp } from '../hooks.js';
 import { ContactLinks, ProjectCard, ServiceCard } from '../components/Shared.jsx';
-
-const sections = [
-  { id: 'intro', label: 'Intro' },
-  { id: 'services', label: 'Services' },
-  { id: 'work', label: 'Work' },
-  { id: 'why', label: 'Why me' },
-  { id: 'start', label: 'Contact' },
-];
-
-function SectionSpy() {
-  const active = useScrollSpy(sections.map((s) => s.id));
-  const current = sections.find((s) => s.id === active) || sections[0];
-  return (
-    <nav className="spy" aria-label="Sections on this page">
-      <ul>
-        {sections.map((s) => (
-          <li key={s.id}>
-            <a
-              href={`#/#${s.id}`}
-              className={s.id === active ? 'on' : ''}
-              aria-current={s.id === active ? 'true' : undefined}
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-            >
-              <span className="spy-label">{s.label}</span>
-              <span className="spy-dot" />
-            </a>
-          </li>
-        ))}
-      </ul>
-      <p className="spy-now" aria-live="polite">You are viewing: {current.label}</p>
-    </nav>
-  );
-}
 
 function Stat({ target, label, note }) {
   const [ref, value] = useCountUp(target);
@@ -57,11 +21,12 @@ export default function Home() {
 
   return (
     <>
-      <SectionSpy />
-
       <section id="intro" className="hero">
         <div className="blob b1" />
         <div className="blob b2" />
+        <div className="wrap rel">
+          <p className="wordmark disp rise d1">CrispinIT<span> Labs</span></p>
+        </div>
         <div className="wrap rel hero-grid">
           <div className="hero-copy">
             <p className="eyebrow rise d1"><span className="dot" />Web design and development &middot; {brand.region}</p>
