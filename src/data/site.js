@@ -72,6 +72,8 @@ export const projects = [
     text: 'A personal website for a Lusaka pianist and saxophonist, with his story, performances and photos.',
     tech: 'HTML, CSS, GitHub Pages',
     url: 'https://www.crismusic.qd.je',
+    image: 'projects/cris-k.webp',
+    alt: 'Home page of the Cris K website, showing a saxophonist and the name CRIS K',
     tones: ['#1E2A3A', '#5B708A'],
   },
   {
