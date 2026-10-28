@@ -63,7 +63,7 @@ export const projects = [
     name: 'YPC Meet and Greet',
     text: 'An event website for the Lusaka East Luangwa Apostle Area Young People\u2019s Choir, with the programme and search-ready pages.',
     tech: 'React, GitHub Pages',
-    url: 'https://crislibjr.github.io/LELLAYPC/',
+    url: 'https://crispinit187.github.io/LELAAYPC/',
     tones: ['#5B708A', '#F8FBFF'],
   },
   {
