@@ -218,7 +218,8 @@ h2.disp { font-size: clamp(26px, 3.4vw, 40px); line-height: 1.15; font-weight: 6
 .project-card { background: var(--bg); border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; border-radius: 24px; }
 .shot-wrap { height: 200px; overflow: hidden; background: #DCEBFF; position: relative; }
 .shot { position: absolute; inset: 0; padding: 22px; display: flex; flex-direction: column; gap: 10px; transition: transform .6s var(--ease); }
-.project-card:hover .shot { transform: scale(1.05); }
+.shot-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform .6s var(--ease); }
+.project-card:hover .shot, .project-card:hover .shot-img { transform: scale(1.05); }
 .sh-bar { height: 14px; width: 40%; border-radius: 6px; }
 .sh-hero { height: 70px; border-radius: 12px; }
 .sh-row { display: flex; gap: 10px; }

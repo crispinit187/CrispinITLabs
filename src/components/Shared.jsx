@@ -17,14 +17,25 @@ export function ProjectCard({ p }) {
   return (
     <article className="card project-card lift reveal">
       <div className="shot-wrap">
-        <div className="shot" aria-hidden="true">
-          <div className="sh-bar" style={{ background: p.tones[0] }} />
-          <div className="sh-hero" style={{ background: p.tones[1] }} />
-          <div className="sh-row">
-            <div style={{ background: p.tones[0] }} />
-            <div style={{ background: '#9DB7D5' }} />
+        {p.image ? (
+          <img
+            className="shot-img"
+            src={`${import.meta.env.BASE_URL}${p.image}`}
+            alt={p.alt || p.name}
+            width="1000"
+            height="493"
+            loading="lazy"
+          />
+        ) : (
+          <div className="shot" aria-hidden="true">
+            <div className="sh-bar" style={{ background: p.tones[0] }} />
+            <div className="sh-hero" style={{ background: p.tones[1] }} />
+            <div className="sh-row">
+              <div style={{ background: p.tones[0] }} />
+              <div style={{ background: '#9DB7D5' }} />
+            </div>
           </div>
-        </div>
+        )}
         {!live && <span className="badge">Coming soon</span>}
       </div>
       <div className="project-body">
